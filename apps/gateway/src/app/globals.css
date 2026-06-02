@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #0b0b10;
+  color: #e6e6ec;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@n-payment/gateway",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@n-payment/shared": "workspace:*",
+    "clsx": "2.1.1",
+    "jose": "5.9.6",
+    "n-payment": "0.19.0",
+    "next": "14.2.21",
+    "postgres": "3.4.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "siwe": "2.3.2",
+    "viem": "2.21.55"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.49.1",
+    "@testing-library/react": "16.1.0",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "autoprefixer": "10.4.20",
+    "jsdom": "25.0.1",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.2",
+    "vitest": "2.1.9"
+  }
+}

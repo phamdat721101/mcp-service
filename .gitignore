@@ -1,0 +1,59 @@
+# ── Dependencies ─────────────────────────────────────────────────────
+node_modules
+.kiro/
+# ── Compiled / generated ─────────────────────────────────────────────
+dist
+.next
+.turbo
+*.tsbuildinfo
+.swc
+.eslintcache
+.parcel-cache
+.vercel
+
+# ── Test / coverage / e2e ────────────────────────────────────────────
+coverage
+playwright-report
+test-results
+
+# ── Logs ─────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Confidential / secrets — NEVER commit ────────────────────────────
+# Matches every dotenv variant (.env, .env.local, .env.production, .env.local.bak, …).
+.env*
+# Keep the example template tracked.
+!.env.example
+*.pem
+*.key
+*.keystore
+*.kdbx
+id_rsa
+id_rsa.*
+secrets.json
+credentials.json
+
+# ── Backup / temp ────────────────────────────────────────────────────
+*.bak
+*.tmp
+*~
+
+# ── OS / editor noise ────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ── Foundry / contracts ──────────────────────────────────────────────
+packages/contracts/out
+packages/contracts/cache
+packages/contracts/broadcast
+packages/contracts/lib
+
+# ── Supabase ─────────────────────────────────────────────────────────
+supabase/.temp
+supabase/.branches

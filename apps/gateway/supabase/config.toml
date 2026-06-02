@@ -1,0 +1,25 @@
+# Supabase project config — apps/gateway
+project_id = "n-payment-gateway"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+# JWT signed by SUPABASE_JWT_SECRET; minted by /api/auth/exchange after Privy verify.
+jwt_expiry = 86400
+enable_signup = false  # publishers self-create via SIWE flow, not Supabase native signup
+
+[edge_runtime]
+enabled = false  # we use Vercel Edge, not Supabase Edge Functions
