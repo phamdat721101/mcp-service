@@ -79,6 +79,7 @@ echo
 printf '%sOptional%s — feature-gated or has a default\n' "$BOLD" "$RESET"
 declare -a OPT=(
   'NEXT_PUBLIC_APP_DOMAIN|defaults to req URL host; set for production cookie domain'
+  'NEXT_PUBLIC_DEMO_PUBLISHER_ORIGIN|HTTPS URL of a real paid MCP origin (VPS) — pre-fills the publish form'
   'DEPLOYER_PK|only needed for forge-script contract deploys'
   'BASE_SEPOLIA_RPC_URL|defaults to https://sepolia.base.org'
   'FLARE_COSTON2_RPC_URL|defaults to coston2-api.flare.network'

@@ -78,15 +78,45 @@ To run only the read-only smoke check (no dev server):
 | Surface | Target | Doc |
 |---|---|---|
 | Gateway + Demo | Vercel + Supabase | this README's "Vercel" section |
-| Contracts | Foundry → 4 chains | `packages/contracts/DEPLOY.md` |
+| Sample paid MCP origin | VPS (Caddy + Let's Encrypt) | this README's "VPS" section |
+| Contracts | Foundry → 3 testnets | `packages/contracts/DEPLOY.md` |
 
 ### Vercel
 
 1. Create a Supabase project. Run `apps/gateway/supabase/migrations/{0001,0002}_*.sql` against it.
 2. Deploy with the [Vercel button](https://vercel.com/new/clone?repository-url=https://github.com/phamdat721101/n-payment-mcp) (or `vercel --prod`).
-3. Set env from `.env.example` (Supabase keys, sponsor PKs, demo buyer PK, CRON_BEARER).
+3. Set env from `.env.example` (DATABASE_URL, SESSION_SECRET, sponsor PKs, demo buyer PK, `NEXT_PUBLIC_DEMO_PUBLISHER_ORIGIN`, CRON_BEARER).
 4. Vercel Cron auto-attaches the daily 06:00 UTC `/api/cron/sweep` per `apps/gateway/vercel.json` (Hobby-tier compatible).
 5. Smoke: visit the preview URL → connect a wallet → publish → click "Run paid call" → see a real Base Sepolia tx hash.
+
+### VPS — sample paid MCP origin (single command)
+
+A real paid MCP server using the `n-payment` SDK lives on a VPS, behind Caddy + Let's Encrypt. Buyer agents (and the gateway proxy) hit this URL; it returns the standard `-32402` envelope which the gateway then rewrites. **No domain required** — Caddy issues a real cert against `<ip-with-dashes>.nip.io`.
+
+```bash
+# defaults: SSH_HOST=ubuntu@52.221.225.219  SSH_KEY=$HOME/Downloads/nim-claw.pem
+./scripts/deploy-vps.sh                # idempotent — re-run to redeploy
+./scripts/deploy-vps.sh --logs         # tail journalctl -u sample-mcp
+./scripts/deploy-vps.sh --restart      # restart the service
+./scripts/deploy-vps.sh --status       # one-shot status
+```
+
+After deploy:
+
+- Public URL: `https://<ip-with-dashes>.nip.io` (e.g. `https://52-221-225-219.nip.io`)
+- Sanity check:
+  ```bash
+  curl -s -H 'content-type: application/json' \
+    --data '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \
+    https://52-221-225-219.nip.io
+  # → { "result": { "tools": [{ "name":"forecast", "_meta":{"x-x402":{...}} }] } }
+  ```
+- Set in Vercel env (and `.env.local`) so the publish form pre-fills:
+  ```
+  NEXT_PUBLIC_DEMO_PUBLISHER_ORIGIN=https://52-221-225-219.nip.io
+  ```
+
+The script provisions Node 20 LTS + Caddy via apt (idempotent), drops `scripts/sample-mcp.mjs` into `~/sample-mcp/` on the remote, runs `npm install n-payment`, writes a `sample-mcp.service` systemd unit, a Caddyfile that auto-issues an LE cert, and opens 80/443 on `ufw`. ~2 min first run, ~10 s on subsequent runs.
 
 ### Contracts
 

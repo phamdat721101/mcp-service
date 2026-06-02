@@ -338,7 +338,9 @@ function PublishSection({
   onPublished: (p: PublishedServer) => void;
 }) {
   const [slug, setSlug] = useState('weather');
-  const [originUrl, setOriginUrl] = useState('https://example-mcp.vercel.app');
+  const [originUrl, setOriginUrl] = useState(
+    process.env.NEXT_PUBLIC_DEMO_PUBLISHER_ORIGIN ?? 'https://example-mcp.vercel.app',
+  );
   const [tool, setTool] = useState('forecast');
   const [price, setPrice] = useState('10000');
   const [err, setErr] = useState<string | null>(null);
