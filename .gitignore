@@ -10,6 +10,7 @@ dist
 .eslintcache
 .parcel-cache
 .vercel
+docs/
 
 # ── Test / coverage / e2e ────────────────────────────────────────────
 coverage

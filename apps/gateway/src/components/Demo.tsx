@@ -362,8 +362,16 @@ function PublishSection({
           tool: { name: tool, priceMicros: price, chain },
         }),
       });
-      const j = (await r.json()) as { ok?: boolean; serverId?: string; publicUrl?: string; error?: string };
-      if (!r.ok || !j.serverId || !j.publicUrl) throw new Error(j.error ?? 'publish-failed');
+      const j = (await r.json()) as {
+        ok?: boolean;
+        serverId?: string;
+        publicUrl?: string;
+        error?: string;
+        message?: string;
+      };
+      if (!r.ok || !j.serverId || !j.publicUrl) {
+        throw new Error(j.message ? `${j.error ?? 'error'}: ${j.message}` : (j.error ?? 'publish-failed'));
+      }
       onPublished({ serverId: j.serverId, publicUrl: j.publicUrl, slug });
     } catch (e) {
       setErr((e as Error).message);
