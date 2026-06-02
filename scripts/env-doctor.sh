@@ -88,7 +88,7 @@ declare -a OPT=(
   'GATEWAY_FEE_RECEIVER_BASE_SEPOLIA|set after contract deploy; defaults to publisher'
   'GATEWAY_FEE_RECEIVER_FLARE_COSTON2|set after Flare deploy'
   'GATEWAY_FEE_RECEIVER_GOAT_TESTNET3|set after GOAT deploy'
-  'AAVE_AUTO_YIELD|"true" enables hourly Aave sweep cron; defaults true'
+  'AAVE_AUTO_YIELD|"true" enables daily Aave sweep cron; defaults true'
   'CRON_BEARER|protects /api/cron/* — leave blank for local dev'
 )
 for entry in "${OPT[@]}"; do

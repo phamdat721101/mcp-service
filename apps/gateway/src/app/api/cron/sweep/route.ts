@@ -1,8 +1,10 @@
 /**
  * GET /api/cron/sweep
  *
- * Vercel Cron hits this hourly. Iterates publishers with sponsor_wallets, runs
- * sweepIdleBalance per chain. Bearer-protected via CRON_BEARER env.
+ * Vercel Cron hits this once per day (06:00 UTC). Iterates publishers with
+ * sponsor_wallets, runs sweepIdleBalance per chain. Bearer-protected via
+ * CRON_BEARER env. Daily is enough — accrual is computed from the elapsed
+ * delta in lib/yield.ts, not wall-clock-tied; Hobby tier limit is 1/day.
  *
  * SOLID: orchestration only — sweep semantics live in lib/yield.ts.
  */

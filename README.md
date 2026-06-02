@@ -85,7 +85,7 @@ To run only the read-only smoke check (no dev server):
 1. Create a Supabase project. Run `apps/gateway/supabase/migrations/{0001,0002}_*.sql` against it.
 2. Deploy with the [Vercel button](https://vercel.com/new/clone?repository-url=https://github.com/phamdat721101/n-payment-mcp) (or `vercel --prod`).
 3. Set env from `.env.example` (Supabase keys, sponsor PKs, demo buyer PK, CRON_BEARER).
-4. Vercel Cron auto-attaches the hourly `/api/cron/sweep` per `apps/gateway/vercel.json`.
+4. Vercel Cron auto-attaches the daily 06:00 UTC `/api/cron/sweep` per `apps/gateway/vercel.json` (Hobby-tier compatible).
 5. Smoke: visit the preview URL → connect a wallet → publish → click "Run paid call" → see a real Base Sepolia tx hash.
 
 ### Contracts

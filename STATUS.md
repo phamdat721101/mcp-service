@@ -13,9 +13,9 @@
 3. **Publish API + envelope rewrite proxy** — `lib/proxy.ts` (pure `rewriteEnvelope`), `/api/publish` (slug + tool registration), `/api/mcp/[handle]/[server]` (buyer-facing JSON-RPC proxy + `-32402` rewrite).
 4. **Settle endpoint** — `lib/onchain.ts` (`buildSettleArgs` pure + `settleOnChain` viem-driven), `/api/settle` writes `audit_entries` and idempotency-checks by `paymentId`.
 5. **Single-page demo UI** — `app/page.tsx` server component hero + `components/Demo.tsx` client island. Connect → SIWE → publish → run paid call → revenue + yield ticker.
-6. **Aave auto-yield** — migration `0002_yield_and_goat.sql`, `lib/yield.ts` (`readPosition`, `sweepIdleBalance`, `readRevenue`), `/api/yield`, hourly Vercel Cron `/api/cron/sweep`.
+6. **Aave auto-yield** — migration `0002_yield_and_goat.sql`, `lib/yield.ts` (`readPosition`, `sweepIdleBalance`, `readRevenue`), `/api/yield`, daily 06:00 UTC Vercel Cron `/api/cron/sweep` (Hobby-tier compatible).
 7. **Flare + GOAT chain wiring** — `/api/demo/run` end-to-end driver: synthesizes envelope, applies rewrite, signs EIP-3009 (DEMO_BUYER_PK), submits `settle()` for chains where the contract is deployed; returns honest pending-deploy steps for the rest. `DEPLOY.md` updated with Flare Coston2 + GOAT Testnet3 commands.
-8. **Deploy + observability + README** — `lib/log.ts` (structured JSON, redact-aware), `/api/healthz` (edge runtime), `vercel.json` (hourly cron + 60s function timeouts), `README.md` rewrite, `scripts/check.sh` reduced to 6 steps.
+8. **Deploy + observability + README** — `lib/log.ts` (structured JSON, redact-aware), `/api/healthz` (edge runtime), `vercel.json` (daily cron + 60s function timeouts), `README.md` rewrite, `scripts/check.sh` reduced to 6 steps.
 9. **Playwright e2e + CI** — 4 smoke tests (page render, healthz, auth-gating); CI job runs after `build-and-test`.
 
 ## Live deploys
